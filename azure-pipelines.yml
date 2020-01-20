@@ -16,12 +16,6 @@ variables:
 
 
 steps:
-- task: Docker@2
-  displayName: Build an image
-  inputs:
-    repository: $(imageName)
-    command: build
-    Dockerfile: app/Dockerfile
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -37,6 +31,13 @@ steps:
     publishWebProjects: true
     arguments: '-r linux-x64 --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: true
+
+- task: Docker@2
+  displayName: Build an image
+  inputs:
+    repository: $(imageName)
+    command: build
+    Dockerfile: app/Dockerfile
 
 - task: PublishBuildArtifacts@1
   displayName: "Upload Artifacts"
