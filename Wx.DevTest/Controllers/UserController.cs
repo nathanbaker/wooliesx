@@ -26,8 +26,8 @@ namespace Wx.WebApiNET.Controllers
         {
             var user = new UserResponse()
             {
-                Name = "test",
-                Token = "1234-455662-22233333-3333"
+                Name = "Nathan Baker",
+                Token = config.Token
             };
 
             return user;
