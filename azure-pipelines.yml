@@ -20,6 +20,7 @@ variables:
     repository: $(imageName)
     command: build
     Dockerfile: app/Dockerfile
+steps:
 
 - task: VSBuild@1
   inputs:
