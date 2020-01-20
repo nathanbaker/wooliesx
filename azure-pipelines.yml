@@ -14,18 +14,12 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
-- task: Docker@2
-  displayName: Build an image
-  inputs:
-    repository: $(imageName)
-    command: build
-    Dockerfile: app/Dockerfile
-steps:
 
+steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip"
+    msbuildArgs: '/p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
@@ -37,6 +31,13 @@ steps:
     publishWebProjects: true
     arguments: '-r linux-x64 --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: true
+
+- task: Docker@2
+  displayName: Build an image
+  inputs:
+    repository: $(imageName)
+    command: build
+    Dockerfile: app/Dockerfile
 
 - task: PublishBuildArtifacts@1
   displayName: "Upload Artifacts"
