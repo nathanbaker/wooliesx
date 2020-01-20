@@ -14,14 +14,14 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
+
+steps:
 - task: Docker@2
   displayName: Build an image
   inputs:
     repository: $(imageName)
     command: build
     Dockerfile: app/Dockerfile
-steps:
-
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
