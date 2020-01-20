@@ -13,8 +13,8 @@ COPY . ./
 RUN dotnet publish --configuration Release -o ./out
 
 # Test Runner
-FROM build-env AS test-env
-RUN dotnet test ./Wx.Core.Tests/Wx.Core.Tests.csproj --logger trx --no-build --configuration Release
+# FROM build-env AS test-env
+# RUN dotnet test ./Wx.Core.Tests/Wx.Core.Tests.csproj --logger trx --no-build --configuration Release
 
 # Runtime
 FROM microsoft/dotnet:2.1-aspnetcore-runtime-alpine AS runtime
